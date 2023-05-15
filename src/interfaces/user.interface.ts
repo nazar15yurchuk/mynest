@@ -1,6 +1,10 @@
-export interface IUser {
-  _id?: string;
+import { Document } from 'mongoose';
+export interface IUser extends Document {
   name?: string;
-  age?: number;
-  status?: boolean;
+  email?: string;
+  password?: string;
+}
+
+export interface Payload {
+  email: string;
 }
