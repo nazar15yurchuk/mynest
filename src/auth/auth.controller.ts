@@ -22,7 +22,8 @@ export class AuthController {
       const payload = {
         email: user.email,
       };
-      const token = await this.authService.signPayload(payload);
+      const token = await this.authService.signPayload(payload, user);
+
       return res.status(HttpStatus.OK).json({ token });
     }
     return res
@@ -30,7 +31,7 @@ export class AuthController {
       .json({ message: 'Email or password is incorrect' });
   }
   @Post('register')
-  async signUpLocal(@Res() res: any, @Body() body: RegisterDto) {
+  async register(@Res() res: any, @Body() body: RegisterDto) {
     let findEmail;
     try {
       findEmail = await this.userService.findEmail(body.email);
@@ -49,4 +50,13 @@ export class AuthController {
     });
     return res.status(HttpStatus.CREATED).json('User created');
   }
+
+  // @Post('refresh')
+  // async refresh(@Req() req: any) {
+  //   try {
+  //     const refreshToken = req.get(this.refresh())
+  //   } catch (e) {
+  //
+  //   }
+  // }
 }

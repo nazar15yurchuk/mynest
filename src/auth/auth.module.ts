@@ -7,10 +7,13 @@ import { JwtModule, JwtService } from '@nestjs/jwt';
 
 import * as dotenv from 'dotenv';
 import { PassportModule } from '@nestjs/passport';
+import { MongooseModule } from '@nestjs/mongoose';
+import { TokenSchema } from '../schemas/token.schema';
 dotenv.config();
 
 @Module({
   imports: [
+    MongooseModule.forFeature([{ name: 'Tokens', schema: TokenSchema }]),
     UsersModule,
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.registerAsync({
